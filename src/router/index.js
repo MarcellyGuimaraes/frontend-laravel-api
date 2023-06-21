@@ -1,26 +1,48 @@
 import { createRouter, createWebHashHistory } from "vue-router";
-import HomeView from "../views/HomeView.vue";
+import LoginView from "../views/LoginView.vue";
+import RegisterView from "../views/RegisterView.vue";
+import TokenView from "../views/TokenView.vue";
 
 const routes = [
   {
     path: "/",
-    name: "home",
-    component: HomeView,
+    name: "login",
+    component: LoginView,
   },
   {
-    path: "/about",
-    name: "about",
-    // route level code-splitting
-    // this generates a separate chunk (about.[hash].js) for this route
-    // which is lazy-loaded when the route is visited.
-    component: () =>
-      import(/* webpackChunkName: "about" */ "../views/AboutView.vue"),
+    path: "/register",
+    name: "register",
+    component: RegisterView,
+  },
+  {
+    path: "/token",
+    name: "token",
+    component: TokenView,
+    meta: {
+      requiresAuth: true, // Define a propriedade 'requiresAuth' como verdadeira para indicar que a rota requer autenticação
+    },
   },
 ];
 
 const router = createRouter({
   history: createWebHashHistory(),
   routes,
+});
+
+router.beforeEach((to, from, next) => {
+  if (to.meta.requiresAuth) {
+    // Verifica se a rota requer autenticação
+    // Implemente sua lógica de verificação de autenticação aqui
+    const isAuthenticated = localStorage.getItem("isAuthenticated") === "true"; // Verifique se o usuário está autenticado
+
+    if (!isAuthenticated) {
+      next("/"); // Redireciona para a rota de login se o usuário não estiver autenticado
+    } else {
+      next(); // Permite o acesso à rota se o usuário estiver autenticado
+    }
+  } else {
+    next(); // Permite o acesso a rotas que não requerem autenticação
+  }
 });
 
 export default router;
