@@ -1,5 +1,5 @@
 <template>
-  <div class="register">
+  <div class="register-view">
     <h2>Registro</h2>
     <form @submit.prevent="register">
       <label>Nome:</label>
@@ -14,6 +14,54 @@
     </form>
   </div>
 </template>
+
+<style lang="scss" scoped>
+.register-view {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  height: 100vh;
+  background-color: #ffffff;
+
+  h2 {
+    margin-bottom: 20px;
+    font-size: 24px;
+  }
+
+  form {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+
+    label {
+      margin-bottom: 5px;
+      font-weight: bold;
+    }
+
+    input {
+      width: 300px;
+      padding: 10px;
+      margin-bottom: 10px;
+      border: 1px solid #ccc;
+      border-radius: 4px;
+    }
+
+    button {
+      padding: 10px 20px;
+      background-color: #007bff;
+      color: #fff;
+      border: none;
+      border-radius: 4px;
+      cursor: pointer;
+
+      &:hover {
+        background-color: #0056b3;
+      }
+    }
+  }
+}
+</style>
 
 <script>
 import axios from "axios";
@@ -47,10 +95,12 @@ export default {
         .post("http://127.0.0.1:8000/api/register", requestData)
         .then((response) => {
           // Registro bem-sucedido
-          const token = response.data.token;
+          const token = response.data.data.token;
           // Salvar o token no Vuex ou localStorage, como preferir
           // Exemplo de salvamento no Vuex:
-          this.$store.commit("setToken", token);
+          localStorage.setItem("token", token);
+
+          localStorage.setItem("isAuthenticated", "true");
 
           // Redirecionar para a tela de exibição do token
           this.$router.push("/token");
