@@ -9,9 +9,10 @@
     <router-link class="nav-link" v-if="isAuthenticated" to="/token"
       >Token |
     </router-link>
-    <button class="nav-link" v-if="isAuthenticated" @click="logout">
-      Logout
-    </button>
+    <router-link class="nav-link" v-if="isAuthenticated" to="/products"
+      >Exemplo |
+    </router-link>
+    <span class="nav-link" v-if="isAuthenticated" @click="logout">Logout</span>
   </nav>
   <router-view />
 </template>
@@ -76,20 +77,6 @@ nav {
 
   &:hover {
     text-decoration: underline;
-  }
-}
-
-button {
-  font-size: 18px;
-  padding: 10px 20px;
-  background-color: #007bff;
-  color: #fff;
-  border: none;
-  border-radius: 4px;
-  cursor: pointer;
-
-  &:hover {
-    background-color: #0056b3;
   }
 }
 </style>

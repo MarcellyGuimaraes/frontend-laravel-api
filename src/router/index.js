@@ -2,6 +2,7 @@ import { createRouter, createWebHashHistory } from "vue-router";
 import LoginView from "../views/LoginView.vue";
 import RegisterView from "../views/RegisterView.vue";
 import TokenView from "../views/TokenView.vue";
+import ProductsView from "../views/ProductsView.vue";
 
 const routes = [
   {
@@ -18,6 +19,14 @@ const routes = [
     path: "/token",
     name: "token",
     component: TokenView,
+    meta: {
+      requiresAuth: true, // Define a propriedade 'requiresAuth' como verdadeira para indicar que a rota requer autenticação
+    },
+  },
+  {
+    path: "/products",
+    name: "products",
+    component: ProductsView,
     meta: {
       requiresAuth: true, // Define a propriedade 'requiresAuth' como verdadeira para indicar que a rota requer autenticação
     },
