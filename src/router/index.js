@@ -42,7 +42,9 @@ router.beforeEach((to, from, next) => {
   if (to.meta.requiresAuth) {
     // Verifica se a rota requer autenticação
     // Implemente sua lógica de verificação de autenticação aqui
-    const isAuthenticated = localStorage.getItem("isAuthenticated") === "true"; // Verifique se o usuário está autenticado
+    const isAuthenticated =
+      localStorage.getItem("isAuthenticated") === "true" &&
+      localStorage.getItem("token") !== ""; // Verifique se o usuário está autenticado
 
     if (!isAuthenticated) {
       next("/"); // Redireciona para a rota de login se o usuário não estiver autenticado

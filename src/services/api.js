@@ -4,11 +4,11 @@ import axios from "axios";
 // http://localhost:3000
 
 export const api = axios.create({
-  baseURL: "http://127.0.0.1:8000/api",
+  baseURL: "http://191.252.110.200/api",
 });
 
 export const apiProducts = axios.create({
-  baseURL: "http://127.0.0.1:8000/api/products",
+  baseURL: "http://191.252.110.200/api/products",
 });
 
 const addAuthHeader = (config) => {

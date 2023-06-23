@@ -68,7 +68,7 @@
 </style>
 
 <script>
-import axios from "axios";
+import { api } from "@/services/api";
 
 export default {
   data() {
@@ -86,8 +86,8 @@ export default {
         email: this.email,
         password: this.password,
       };
-      axios
-        .post("http://127.0.0.1:8000/api/login", loginData)
+      api
+        .post("/login", loginData)
         .then((response) => {
           const token = response.data.data.token;
 
@@ -100,9 +100,9 @@ export default {
           this.$router.push({ name: "token" });
         })
         .catch((error) => {
+          console.error("ERRO", error.response);
           if (error.response.data.message == "Unauthorized.") {
             this.error = true;
-            console.error("ERRO", error.response.data.message);
           }
         });
     },

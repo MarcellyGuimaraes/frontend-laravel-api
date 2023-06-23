@@ -124,7 +124,7 @@ export default {
       };
 
       apiProducts
-        .post("", formData)
+        .post("/", formData)
         .then((response) => {
           console.log(response.data);
         })
@@ -147,7 +147,6 @@ export default {
     apiProducts
       .get()
       .then((response) => {
-        console.log(response.data);
         this.produtos = response.data;
       })
       .catch((error) => {

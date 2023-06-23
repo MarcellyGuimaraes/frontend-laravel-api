@@ -64,7 +64,8 @@
 </style>
 
 <script>
-import axios from "axios";
+import { api } from "@/services/api";
+
 export default {
   data() {
     return {
@@ -91,8 +92,8 @@ export default {
       };
 
       // Fazer a requisição para a rota de registro
-      axios
-        .post("http://127.0.0.1:8000/api/register", requestData)
+      api
+        .post("/register", requestData)
         .then((response) => {
           // Registro bem-sucedido
           const token = response.data.data.token;
