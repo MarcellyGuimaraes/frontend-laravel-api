@@ -23,7 +23,7 @@
 
       <div>
         <h3>Requisição POST</h3>
-        <form class="form" @submit="createProduct">
+        <form class="form" @submit.prevent="createProduct">
           <input
             v-model="name"
             placeholder="Nome do produto"
@@ -117,14 +117,21 @@ export default {
   },
   methods: {
     createProduct() {
-      const formData = {
-        name: this.name,
-        price: this.price,
-        description: this.description,
-      };
+      console.log("name:", this.name);
+      console.log("price:", this.price);
+      console.log("description:", this.description);
+
+      const formData = new FormData();
+      formData.append("name", this.name);
+      formData.append("price", this.price);
+      formData.append("description", this.description);
 
       apiProducts
-        .post("/", formData)
+        .post("", formData, {
+          headers: {
+            "Content-Type": "multipart/form-data",
+          },
+        })
         .then((response) => {
           console.log(response.data);
         })
@@ -132,6 +139,7 @@ export default {
           console.error("ERRO", error);
         });
     },
+
     deleteProduct(id) {
       apiProducts
         .delete(`/${id}`)

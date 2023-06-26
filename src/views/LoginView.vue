@@ -100,7 +100,7 @@ export default {
           this.$router.push({ name: "token" });
         })
         .catch((error) => {
-          console.error("ERRO", error.response);
+          console.error("ERRO", error);
           if (error.response.data.message == "Unauthorized.") {
             this.error = true;
           }
